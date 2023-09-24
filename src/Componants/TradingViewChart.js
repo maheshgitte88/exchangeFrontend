@@ -27,7 +27,7 @@ export default function TradingViewChart({ selectedSymbol }) {
                 if (document.getElementById('tradingview_9154e') && 'TradingView' in window) {
                     new window.TradingView.widget({
                         width: '100%',
-                        height: '490',
+                        height: '400',
                         // symbol: `${selectedSymbol}`,
                         symbol: `BTCUSDT`,
                         interval: "D",
@@ -36,10 +36,10 @@ export default function TradingViewChart({ selectedSymbol }) {
                         theme: `${savedTheme}`, 
                         style: "1",
                         locale: "in",
-                        enable_publishing: true,
+                        enable_publishing: false,
                         withdateranges: true,
-                        hide_side_toolbar: false,
-                        allow_symbol_change: true,
+                        hide_side_toolbar: true,
+                        allow_symbol_change: false,
                         container_id: "tradingview_9154e"
                     });
                 }
