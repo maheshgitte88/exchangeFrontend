@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Step3 = ({ depositAddress, setDepositAddress }) => {
-    const [isLoading, setIsLoading] = useState(false); // Simulate loading state
-
+    const [isLoading, setIsLoading] = useState(false);
     const handleGetAddressClick = () => {
-        setIsLoading(true); // Simulate loading
-        // Simulate API call to get the address
+        setIsLoading(true);
         setTimeout(() => {
-            setDepositAddress('1234567890'); // Set a sample address
+            setDepositAddress('1234567890');
             setIsLoading(false);
-        }, 1000);
+        }, 100);
     };
 
     const handleCopyAddressClick = async () => {
@@ -29,7 +27,8 @@ const Step3 = ({ depositAddress, setDepositAddress }) => {
                     <p>Deposit Address:</p>
                     <textarea
                         value={depositAddress}
-                        className="w-full bg-gray-100 rounded p-2 resize-none"
+                        style={{color:"black"}}
+                        className='w-full bg-gray-100 rounded p-2 resize-none'
                         rows={3}
                         readOnly
                     ></textarea>
