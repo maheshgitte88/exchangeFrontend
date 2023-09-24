@@ -1,0 +1,32 @@
+/* YourComponent.css or use Tailwind CSS classes */
+.module-container {
+    position: fixed; /* or position: absolute; */
+    top: 135px; /* Position it vertically in the middle */
+    left: 50%; /* Center it horizontally */
+    transform: translate(-50%, -50%); /* Center it exactly in the middle */
+    z-index: 9999; /* Set a high z-index to appear above other content */
+   
+  }
+  
+  .module {
+    /* display: flex; */
+    /* background-color: white; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    /* Add other styling as needed */
+  }
+.module-item{
+    cursor: pointer;
+}
+.module-item:hover{
+  
+}
+  .dark-theme {
+    background-color: #111827;
+    color: white;
+  }
+  
+  /* Light mode styles */
+  .light-theme {
+    background-color: white;
+    color: black;
+  }
