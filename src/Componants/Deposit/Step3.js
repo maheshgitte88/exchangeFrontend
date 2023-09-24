@@ -27,7 +27,7 @@ const Step3 = ({ depositAddress, setDepositAddress }) => {
                     <p>Deposit Address:</p>
                     <textarea
                         value={depositAddress}
-                        style={{color:"black"}}
+                        style={{ color: "black" }}
                         className='w-full bg-gray-100 rounded p-2 resize-none'
                         rows={3}
                         readOnly

@@ -5,6 +5,8 @@ import { useState } from "react";
 
 function TradingPage() {
   const [activeTab, setActiveTab] = useState('spot');
+  const [activeTabOrders, setActiveTabOrders] = useState('O-Orders');
+
   const [selectedTab, setSelectedTab] = useState(0);
   const [position, setPosition] = useState(0);
 
@@ -23,7 +25,9 @@ function TradingPage() {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-
+  const handleOrderTabClick = (tab) => {
+    setActiveTabOrders(tab);
+  };
   const iconStyles = {
     margin: "0px",
     minWidth: "0px",
@@ -39,6 +43,9 @@ function TradingPage() {
         <div
           style={{ fontFamily: "BinancePlex, Arial, sans-serif !important;" }}
         >
+
+          {/* first row */}
+
           <div className="containered" style={{ marginTop: "2px" }}>
             <div className="Info border border-gray-100 bg-white shadow dark:border-gray-700 dark:bg-gray-900 relative">
               <div
@@ -176,7 +183,7 @@ function TradingPage() {
                 </li>
               </ul>
 
-              {selectedTab === 0 && (
+              {/* {selectedTab === 0 && (
                 <div className="Asks">
                   <div className="LastPrice"></div>
                   <div className="Bids"></div>
@@ -193,11 +200,12 @@ function TradingPage() {
                 <div className="Bids">
                   <div className="LastPrice"></div>
                 </div>
-              )}
+              )} */}
 
 
 
               <div className="OrderbookGrid">
+
                 {selectedTab === 0 && (
                   <>
                     <div className="Asks">
@@ -697,8 +705,6 @@ function TradingPage() {
 
                 )}
 
-
-
               </div>
             </div>
 
@@ -711,6 +717,7 @@ function TradingPage() {
             >
 
 
+              {/* salect market pair slider */}
 
               <div className="mb-4 flex border-gray-200 dark:border-gray-800">
                 <button className="-mb-px bg-gray-200 px-1 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700" onClick={handleLeftClick}>
@@ -813,6 +820,7 @@ function TradingPage() {
                   <i className="bi bi-chevron-right text-warning fs-6"></i>
                 </button>
               </div>
+              {/*sarch section & trade paris */}
 
               <div id="myTabContent" className="px-3">
                 <div >
@@ -1027,6 +1035,9 @@ function TradingPage() {
               <loadingcircles loading="false"></loadingcircles>
             </div>
 
+
+
+            {/* market trades */}
             <div
               className="Trades border border-gray-100 bg-white shadow dark:border-gray-700 dark:bg-gray-900 relative"
               style={{ overflow: "hidden auto" }}
@@ -1113,6 +1124,7 @@ function TradingPage() {
           allowfullscreen="" style={{display:"block"}}></iframe></div>
           </div> */}
 
+            {/* chart page */}
             <div
               id="creatable"
               className="Chart border border-gray-100 bg-white shadow dark:border-gray-700 dark:bg-gray-900"
@@ -1121,7 +1133,7 @@ function TradingPage() {
                 <TradingViewChart />
               </div>
             </div>
-
+            {/* spot and Limit order place section */}
             <div
               className="Order border border-gray-100 bg-white shadow dark:border-gray-700 dark:bg-gray-900"
               data-v-8f71af4b=""
@@ -1358,6 +1370,7 @@ function TradingPage() {
                   </div> : null}
 
                 {activeTab === 'limit' ?
+
                   <div
                     id="limit"
                     role="tabpanel"
@@ -1608,6 +1621,8 @@ function TradingPage() {
             </div>
           </div>
 
+          {/* second row */}
+
           <div className="border border-gray-100 bg-white shadow dark:border-gray-700 dark:bg-gray-900">
             <ul
               id="myTab"
@@ -1617,11 +1632,13 @@ function TradingPage() {
               <li>
                 <a
                   id="open-orders-tab"
-                  className="inline-block py-2 pl-3 pr-4 text-xs font-medium border-gray-300 bg-white text-gray-700 dark:bg-gray-900 dark:text-gray-300"
+                  className={`inline-block py-2 pl-3 pr-4 text-xs font-medium border-gray-300 bg-white text-gray-700 dark:bg-gray-900 dark:text-gray-300 ${activeTabOrders === 'O-Orders' ? 'active-tab' : 'inactive-tab'
+                    }`}
                   type="button"
                   role="tab"
                   aria-controls="open-orders"
                   aria-selected="false"
+                  onClick={() => handleOrderTabClick('O-Orders')}
                 >
                   Open Orders
                 </a>
@@ -1629,397 +1646,411 @@ function TradingPage() {
               <li>
                 <a
                   id="closed-orders-tab"
-                  className="inline-block py-2 pl-3 pr-4 text-xs font-medium cursor-pointer border-transparent bg-gray-200 text-gray-400 hover:border-gray-300 hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                  className={`inline-block py-2 pl-3 pr-4 text-xs font-medium cursor-pointer border-transparent bg-gray-200 text-gray-400 hover:border-gray-300 hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${activeTabOrders === 'H-Orders' ? 'active-tab' : 'inactive-tab'
+                    }`}
                   type="button"
                   role="tab"
                   aria-controls="closed-orders"
                   aria-selected="false"
+                  onClick={() => handleOrderTabClick('H-Orders')}
                 >
                   Order History
                 </a>
               </li>
             </ul>
-            <div
-              id="open-orders"
-              className="pt-3"
-              role="tabpanel"
-              style={{ minHeight: "300px" }}
-            >
-              <div className="overflow-x-auto">
-                <table className="v-table w-full text-left text-gray-500 dark:text-gray-400">
-                  <thead>
-                    <tr className="bg-gray-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Date{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Symbol{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              TxHash{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Side{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Price{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Amount{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Filled{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Status{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th scope="col" className="p-1"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan="100%" className="text-center">
-                        <div className="flex w-full justify-center">
-                          <img
-                            height="128"
-                            width="128"
-                            src="https://assets.staticimg.com/pro/2.0.4/images/empty.svg"
-                            alt=""
-                          />
-                        </div>{" "}
-                        No Data Found
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+
+
+            {/* open order sections */}
+
+            {activeTabOrders === 'O-Orders' ?
+
+              <div
+                id="open-orders"
+                className="pt-3"
+                role="tabpanel"
+                style={{ minHeight: "300px" }}
+              >
+                <div className="overflow-x-auto">
+                  <table className="v-table w-full text-left text-gray-500 dark:text-gray-400">
+                    <thead>
+                      <tr className="bg-gray-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Date{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Symbol{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                TxHash{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Side{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Price{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Amount{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Filled{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Status{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th scope="col" className="p-1"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="100%" className="text-center">
+                          <div className="flex w-full justify-center">
+                            <img
+                              height="128"
+                              width="128"
+                              src="https://assets.staticimg.com/pro/2.0.4/images/empty.svg"
+                              alt=""
+                            />
+                          </div>{" "}
+                          No Data Found
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
-            <div
-              id="closed-orders"
-              className="pt-3 hidden"
-              role="tabpanel"
-              style={{ minHeight: "300px" }}
-            >
-              <div className="overflow-x-auto">
-                <table className="v-table w-full text-left text-gray-500 dark:text-gray-400">
-                  <thead>
-                    <tr className="bg-gray-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Date{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Symbol{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              TxHash{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Side{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Price{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Amount{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Filled{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                      <th className="v-th p-1" scope="col">
-                        <div >
-                          <span>
-                            <div className="flex items-center">
-                              Status{" "}
-                              <a href="#">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="ml-1 h-3 w-3"
-                                  aria-hidden="true"
-                                  fill="currentColor"
-                                  viewBox="0 0 320 512"
-                                >
-                                  <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
-                                </svg>
-                              </a>
-                            </div>
-                          </span>
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td colspan="100%" className="text-center">
-                        <div className="flex w-full justify-center">
-                          <img
-                            height="128"
-                            width="128"
-                            src="https://assets.staticimg.com/pro/2.0.4/images/empty.svg"
-                            alt=""
-                          />
-                        </div>{" "}
-                        No Data Found
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              : null}
+
+            {/* Histry order section */}
+            {activeTabOrders === 'H-Orders' ?
+              <div
+                id="closed-orders"
+                className="pt-3"
+                role="tabpanel"
+                style={{ minHeight: "300px" }}
+              >
+                <div className="overflow-x-auto">
+                  <table className="v-table w-full text-left text-gray-500 dark:text-gray-400">
+                    <thead>
+                      <tr className="bg-gray-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Date{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Symbol{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                TxHash{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Side{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Price{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Amount{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Filled{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                        <th className="v-th p-1" scope="col">
+                          <div >
+                            <span>
+                              <div className="flex items-center">
+                                Order Status{" "}
+                                <a href="#">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="ml-1 h-3 w-3"
+                                    aria-hidden="true"
+                                    fill="currentColor"
+                                    viewBox="0 0 320 512"
+                                  >
+                                    <path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </span>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="100%" className="text-center">
+                          <div className="flex w-full justify-center">
+                            <img
+                              height="128"
+                              width="128"
+                              src="https://assets.staticimg.com/pro/2.0.4/images/empty.svg"
+                              alt=""
+                            />
+                          </div>{" "}
+                          No Data Found
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+              : null}
+
           </div>
         </div>
       </div>
