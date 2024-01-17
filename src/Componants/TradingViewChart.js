@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 
 let tvScriptLoadingPromise;
 
-export default function TradingViewChart({ selectedSymbol }) {
-    const { FirstSymbol,  SecondSymbol} = useParams();
+export default function ({ selectedSymbol, salectedPair }) {
+    // const { FirstSymbol,  SecondSymbol} = useParams();
     const savedTheme = localStorage.getItem('color-theme');
     const onLoadScriptRef = useRef();
     useEffect(
@@ -29,7 +29,7 @@ export default function TradingViewChart({ selectedSymbol }) {
                         width: '100%',
                         height: '400',
                         // symbol: `${selectedSymbol}`,
-                        symbol: `BTCUSDT`,
+                        symbol: `${selectedSymbol}${salectedPair}`,
                         interval: "D",
                         timezone: "Etc/UTC",
                         // theme: "light",
@@ -45,9 +45,8 @@ export default function TradingViewChart({ selectedSymbol }) {
                 }
             }
         },
-        [selectedSymbol]
+        [selectedSymbol , salectedPair]
     );
-    console.log(selectedSymbol, 54)
     return (
         <div className='tradingview-widget-container'>
             <div id='tradingview_9154e' />

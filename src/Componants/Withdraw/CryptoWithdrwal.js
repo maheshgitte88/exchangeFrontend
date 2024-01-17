@@ -36,13 +36,19 @@ const CryptoWithdrwal = () => {
   const confirmWithdrawal = () => {
     // Handle withdrawal confirmation
   };
-
+  const Handelbackpage = () => {
+    window.history.back();
+  };
   return (
     <>
-      <div class={`${theme}-theme grid grid-rows-3 grid-flow-col gap-4`}>
-        <div class="row-span-2 col-span-2">
+      <div className={`${theme}-theme grid grid-rows-3 grid-flow-col gap-4`}>
+        <div className="row-span-2 col-span-2">
           <div className="min-h-screen p-4 md:p-8">
             <h1 className="text-3xl font-semibold mb-4">
+              <i
+                onClick={Handelbackpage}
+                className="bi bi-chevron-left cursor-pointer px-2"
+              ></i>
               Crypto Withdrawal Process
             </h1>
 
@@ -98,12 +104,12 @@ const CryptoWithdrwal = () => {
             <div className="p-4 rounded-lg shadow-md">
               <div className="font-semibold">Step 1: Select Coin</div>
               <select
-                className="mt-2 p-2 border rounded-md w-full"
+                className="mt-2 p-2 border text-black rounded-md w-full"
                 value={selectedCoin}
                 onChange={handleCoinChange}
               >
-                <option value="btc">Bitcoin (BTC)</option>   
-                
+                <option value="btc">Bitcoin (BTC)</option>
+
                 <option value="eth">Ethereum (ETH)</option>
                 {/* Add other options */}
               </select>
@@ -134,7 +140,7 @@ const CryptoWithdrwal = () => {
               </div>
               {existingAddressChecked && (
                 <div className="mt-2 p-2 border rounded-md">
-                  <select className="w-full">
+                  <select className="w-full text-black">
                     <option value="existing1">Existing Address 1</option>
                     <option value="existing2">Existing Address 2</option>
                     {/* Add other existing addresses */}
@@ -147,7 +153,7 @@ const CryptoWithdrwal = () => {
             <div className="p-4 rounded-lg shadow-md mt-4">
               <div className="font-semibold">Step 3: Select Network</div>
               <select
-                className="mt-2 p-2 border rounded-md w-full"
+                className="mt-2 p-2 border text-black rounded-md w-full"
                 value={selectedNetwork}
                 onChange={handleNetworkChange}
               >
@@ -180,11 +186,10 @@ const CryptoWithdrwal = () => {
                 {/* Replace with actual fee */}
               </div>
               <button
-                className={`mt-4 bg-blue-500 text-white px-4 py-2 rounded-md ${
-                  withdrawalQuantity <= availableQuantity
+                className={`mt-4 bg-blue-500 text-white px-4 py-2 rounded-md ${withdrawalQuantity <= availableQuantity
                     ? ""
                     : "opacity-50 cursor-not-allowed"
-                }`}
+                  }`}
                 onClick={confirmWithdrawal}
                 disabled={withdrawalQuantity > availableQuantity}
               >
@@ -194,7 +199,7 @@ const CryptoWithdrwal = () => {
           </div>
         </div>
 
-        <div class="row-span-3 gap-4">
+        <div className="row-span-3 gap-4">
           {/* <h1 className="text-3xl font-semibold mb-4 text-center text-gray-800">
             FAQ
           </h1> */}

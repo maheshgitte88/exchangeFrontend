@@ -1,35 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const FundOverviewPage = () => {
+  const [theme, setTheme] = useState("dark");
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("color-theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
   return (
     <>
-      <div class="grid grid-rows-3 grid-flow-col gap-4 mt-4">
-        <div class="row-span-2 col-span-2 ...">
-          <div className="bg-gray-100 min-h-screen p-4 md:p-8">
+      <div className={`${theme}-theme grid grid-rows-3 grid-flow-col gap-4 mt-4`}>
+        <div className="row-span-2 col-span-2 ...">
+          <div className="min-h-screen p-4 md:p-8">
             <div className="flex justify-between p-4 rounded-lg shadow-md">
               <div className="text-2xl font-semibold mb-4">Funds Overview</div>
               <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                 <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
-                  Deposit
+                  <Link to={'/DepositeCrypto'}>Deposit</Link>
                 </button>
                 <button className="px-4 py-2 bg-green-500 text-white rounded-md">
-                  Withdraw
-                </button>
-                <button className="px-4 py-2 bg-gray-400 text-white rounded-md">
-                  Trade
+                  <Link to={'/WithdrawCrypto'}>Withdraw</Link>
                 </button>
                 <button className="px-4 py-2 bg-pink-400 text-white rounded-md">
-                  Buy Crypto
+                  <Link to={'/'}> Buy Crypto</Link>
                 </button>
               </div>
             </div>
 
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2 mt-8">
-              <div className="bg-white p-4 rounded-lg shadow-md">
+              <div className=" p-4 rounded-lg shadow-md">
                 <div className="font-semibold mb-2">Total Assets Value</div>
                 <div className="text-3xl font-bold">$1,234,567</div>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-md">
+              <div className="p-4 rounded-lg shadow-md">
                 <div className="font-semibold mb-2">Today's PNL</div>
                 <div className="text-3xl font-bold text-green-500">
                   +$12,345
@@ -39,21 +45,21 @@ const FundOverviewPage = () => {
 
             <div className="mt-8">
               <div className="text-xl font-semibold mb-4">Classic Account</div>
-              <div className="flex justify-between bg-white p-4 rounded-lg shadow-md">
+              <div className="flex justify-between p-4 rounded-lg shadow-md">
                 <div className="font-semibold">Sport Account</div>
                 <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                   <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
-                    Deposit
+                    <Link to={'/DepositeCrypto'}>Deposit</Link>
                   </button>
                   <button className="px-4 py-2 bg-green-500 text-white rounded-md">
-                    Withdraw
+                    <Link to={'/WithdrawCrypto'}>Withdraw</Link>
                   </button>
-                  <button className="px-4 py-2 bg-gray-400 text-white rounded-md">
-                    Trade
+                  <button className="px-4 py-2 bg-pink-400 text-white rounded-md">
+                    <Link to={'/'}>Trade</Link>
                   </button>
                 </div>
               </div>
-              <div className="flex justify-between bg-white p-4 rounded-lg shadow-md">
+              <div className="flex justify-between p-4 rounded-lg shadow-md">
                 <div className="font-semibold">Payment</div>
                 <div className="space-x-4">
                   <button className="px-4 py-2 bg-green-500 text-white rounded-md">
@@ -61,7 +67,7 @@ const FundOverviewPage = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex justify-between bg-white p-4 rounded-lg shadow-md">
+              <div className="flex justify-between p-4 rounded-lg shadow-md">
                 <div className="font-semibold">Futures</div>
                 <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                   <button className="px-4 py-2 bg-green-500 text-white rounded-md">
@@ -72,7 +78,7 @@ const FundOverviewPage = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex justify-between bg-white p-4 rounded-lg shadow-md">
+              <div className="flex justify-between p-4 rounded-lg shadow-md">
                 <div className="font-semibold">Margin</div>
                 <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                   <button className="px-4 py-2 bg-green-500 text-white rounded-md">
@@ -86,7 +92,7 @@ const FundOverviewPage = () => {
             </div>
           </div>
         </div>
-        <div class="row-span-3 mt-4">
+        <div className="row-span-3 mt-4">
           <div>
             <div className="flex items-center mb-2">
               <div className="bg-blue-500 text-white w-10 h-10 flex items-center justify-center rounded-md">
@@ -95,7 +101,7 @@ const FundOverviewPage = () => {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-person-circle"
+                  className="bi bi-person-circle"
                   viewBox="0 0 16 16"
                 >
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -109,11 +115,11 @@ const FundOverviewPage = () => {
             </div>
             <div className="text-sm mb-2">maheshgitte88</div>
             <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
-              more
+              <Link to={'userkyc'}>submit kyc</Link>
             </button>
           </div>
           <div className="space-y-4">
-            <div className="bg-white p-4 rounded-lg shadow-md">
+            <div className="p-4 rounded-lg shadow-md">
               <div className="font-semibold">All Schemes</div>
               <div className="flex flex-col space-y-2 mt-4">
                 <div className="text-sm">
@@ -125,7 +131,7 @@ const FundOverviewPage = () => {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-clock"
+                    className="bi bi-clock"
                     viewBox="0 0 16 16"
                   >
                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
@@ -142,7 +148,7 @@ const FundOverviewPage = () => {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-clock"
+                    className="bi bi-clock"
                     viewBox="0 0 16 16"
                   >
                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
@@ -159,7 +165,7 @@ const FundOverviewPage = () => {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-clock"
+                    className="bi bi-clock"
                     viewBox="0 0 16 16"
                   >
                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
@@ -169,7 +175,7 @@ const FundOverviewPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
+            <div className="p-4 rounded-lg shadow-md">
               <div className="font-semibold">Announcements</div>
               <div className="flex flex-col space-y-2 mt-4">
                 <div className="text-sm">
@@ -181,7 +187,7 @@ const FundOverviewPage = () => {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-clock"
+                    className="bi bi-clock"
                     viewBox="0 0 16 16"
                   >
                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
@@ -198,7 +204,7 @@ const FundOverviewPage = () => {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-clock"
+                    className="bi bi-clock"
                     viewBox="0 0 16 16"
                   >
                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
@@ -215,7 +221,7 @@ const FundOverviewPage = () => {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-clock"
+                    className="bi bi-clock"
                     viewBox="0 0 16 16"
                   >
                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />

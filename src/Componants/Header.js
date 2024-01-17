@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Module from './Module';
 import MarketModule from './MarketModule';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -78,11 +79,11 @@ const Header = () => {
           </div>
           <ul className={`nav-items ${isDropdownOpen ? `open ${theme}-theme` : ''}`}>
             <li className="nav-item"><button className="bg-yellow-200 hover:bg-yellow-600 text-black px-3 rounded"><i className="bi bi-arrow-down-square"></i><a href='/DepositeCrypto'>Deposit</a></button></li>
-            <li className="nav-item">Wallet</li>
-            <li className="nav-item">Orders</li>
-            <li className="nav-item"><i className="bi bi-person-circle bi--lg"></i></li>
-            <li className="nav-item"> <i class="bi bi-bell"></i></li>
-            <li className="nav-item"><i className="bi bi-globe2 divide-x divide-gray-400"></i></li>
+            <li className="nav-item"><Link to={'/TransactionHistory'}>Wallet</Link></li>
+            {/* <li className="nav-item">Orders</li> */}
+            <li className="nav-item"><Link to={'/fundOverview'}><i className="bi bi-person-circle bi--lg"></i></Link></li>
+            {/* <li className="nav-item"> <i className="bi bi-bell"></i></li> */}
+            <li className="nav-item"><Link to={'/CurrencyConverter'}><i className="bi bi-globe2 divide-x divide-gray-400"></i></Link></li>
             <li className="nav-item" onClick={toggleTheme}>
               {theme === 'dark' ? (
                 <i className="bi bi-sun"></i>

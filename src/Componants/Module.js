@@ -16,7 +16,7 @@ const Module = ({ onMouseEnter, onMouseLeave, onItemClick }) => {
             <div className="module shadow-md">
 
                 <div className="module-section flex">
-                    <a href='/Trade' className='flex module-item hover:bg-orange-200 py-4 mx-4'>
+                    <a href='/' className='flex module-item hover:bg-orange-200 py-4 mx-4'>
                         <i className="bi bi-chevron-bar-expand px-4 pt-2"></i>
                         <div className="module-item px-4" onClick={onItemClick}>Spot <div className="text-xs text-right">Trade cryoto and earn</div></div>
                     </a>
